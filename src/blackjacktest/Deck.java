@@ -113,6 +113,5 @@ public class Deck {
         for (int i=0; i < 80; i++) {
             System.out.println(getCardName(deck.pullNextCard()));
         }
-
     }
 }

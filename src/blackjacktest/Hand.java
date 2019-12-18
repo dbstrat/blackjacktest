@@ -1,33 +1,36 @@
 package blackjacktest;
 
+import java.util.ArrayList;
+
 public class Hand {
 
-    private static int MAX_CARDS_IN_HAND = 10;  // if you add 10 card values together they must be > 21
-    private static int UPCARD = 0;
-    private int[] cards = new int[MAX_CARDS_IN_HAND];
-    private int numCards = 0;
-
+    private static int UPCARD_INDEX = 0;
+    private ArrayList<Integer> cards = new ArrayList<>();
 
     public static Hand pullHand(Deck deck) {
         return new Hand(deck.pullNextCard(), deck.pullNextCard());
     }
 
     public Hand(int upcard, int firstDownCard) {
-        this.cards[UPCARD] = upcard;
-        this.cards[1] = firstDownCard;
-        this.numCards = 2;
+        cards.add(upcard);
+        cards.add(firstDownCard);
     }
 
     public void addCard(int card) {
-        this.cards[numCards++] = card;
+        cards.add(card);
     }
 
-    public int getUpcard() {
-        return this.cards[UPCARD];
+    public int[] getCardsArray() {
+        int[] cardsArray = new int[this.cards.size()];
+        int i=0;
+        for (int card : cards) {
+            cardsArray[i++] = card;
+        }
+        return cardsArray;
     }
 
-    public int[] getCards() {
-        return this.cards;
+    private int getUpcard() {
+        return cards.get(UPCARD_INDEX);
     }
 
     private static String getCardsDescription(int[] someCards) {
@@ -41,13 +44,12 @@ public class Hand {
     }
 
     public String getUpcardDescription() {
-        int[] upcards = new int[1];
-        upcards[UPCARD] = this.cards[UPCARD];
+        int[] upcards = { getUpcard() } ;
         return getCardsDescription(upcards);
     }
 
     public String getHandDescription() {
-        return getCardsDescription(this.cards);
+        return getCardsDescription(getCardsArray());
     }
 
     public int getHandValue() {
@@ -56,5 +58,16 @@ public class Hand {
             value += Deck.getCardValue(card);
         }
         return value;
+    }
+
+    // this main just used to test the hand class
+    public static void main(String[] args) {
+        Deck deck = new Deck();
+        Hand hand =  deck.pullHand();
+        hand.addCard(deck.pullNextCard());
+        hand.addCard(deck.pullNextCard());
+        System.out.println("hand value: " + hand.getHandValue());
+        System.out.println("hand description: " + hand.getHandDescription());
+        System.out.println("hand upcard: " + hand.getUpcardDescription());
     }
 }
