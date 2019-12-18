@@ -3,7 +3,7 @@ package blackjacktest;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class BlackJackGame {
+public class BlackjackGameClasses {
 
     private static final int NUM_PLAYERS = 2;
     private static final Scanner scanner = new Scanner(System.in);
