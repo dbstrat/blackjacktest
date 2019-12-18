@@ -40,7 +40,7 @@ public class Hand {
         return cardNames;
     }
 
-    public String getHandShowing() {
+    public String getUpcardDescription() {
         int[] upcards = new int[1];
         upcards[UPCARD] = this.cards[UPCARD];
         return getCardsDescription(upcards);

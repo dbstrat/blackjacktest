@@ -8,19 +8,19 @@ public class BlackJackGame {
     private static final int NUM_PLAYERS = 2;
     private static final Scanner scanner = new Scanner(System.in);
 
-    private static final int HIT = 0;
-    private static final int STAY = 1;
+    private static final int ACTION_HIT = 0;
+    private static final int ACTION_STAY = 1;
 
     public static int getDealerAction(Player player) {
         Hand hand = player.getHand();
         int handValue = hand.getHandValue();
-        return HIT;  /// placeholder -- needs to be coded
+        return ACTION_HIT;  /// placeholder -- needs to be coded
     }
 
     public static int getPlayerAction(Player player) {
         Hand hand = player.getHand();
         int handValue = hand.getHandValue();
-        return HIT;  /// placeholder -- needs to be coded
+        return ACTION_HIT;  /// placeholder -- needs to be coded
     }
 
     public static void main(String[] args) {
@@ -29,7 +29,7 @@ public class BlackJackGame {
 
         System.out.println("Welcome to Blackjack!");
 
-        // collect player names
+        // create players and dealer
         for (int i = 0; i< NUM_PLAYERS; i++) {
             boolean isDealer = (i == 0); // zeroth player is dealer
             if (isDealer) {
@@ -50,8 +50,17 @@ public class BlackJackGame {
             String name = player.getName();
             System.out.println(name + " it is your turn.");
             System.out.println(name + " you have " + player.getHand().getHandDescription());
-            int action = getPlayerAction(player);
-            if (action == HIT) {
+
+            while (player.getHand().getHandValue() <= 21) {
+                int action = getPlayerAction(player);
+                if (action == ACTION_HIT) {
+                    // do something
+                } else {
+                    // do something else
+                }
+            }
+
+            if (player.getHand().getHandValue() <= 21) {
                 // do something
             } else {
                 // do something else
@@ -62,14 +71,23 @@ public class BlackJackGame {
         Player dealer = players.get(0);
         String name = dealer.getName();
         System.out.println(name + " it is your turn.");
-        int action = getDealerAction(dealer);
-        if (action == HIT) {
+        while (dealer.getHand().getHandValue() <= 21) {
+            int action = getDealerAction(dealer);
+            if (action == ACTION_HIT) {
+                // do something
+            } else {
+                // do something else
+            }
+        }
+
+        if (dealer.getHand().getHandValue() <= 21) {
             // do something
         } else {
             // do something else
         }
 
         // determine winner
+
 
         // update statistics
     }
