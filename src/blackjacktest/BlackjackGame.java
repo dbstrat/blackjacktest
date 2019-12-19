@@ -1,6 +1,7 @@
 package blackjacktest;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 
 public class BlackjackGame {
@@ -97,12 +98,49 @@ public class BlackjackGame {
         return cardNames;
     }
 
-    public static int getHandValue(ArrayList<Integer> hand) {
+    // new
+    public static int getHighHandValue(ArrayList<Integer> hand) {
+        int value = 0;
+        for (int card : hand) {
+            int cardval = getCardValue(card);
+            if (cardval == 1) {
+                value += 11;
+            }
+            else {
+                value += cardval;
+            }
+        }
+        return value;
+    }
+
+    // deleted     public static int getHandValue(ArrayList<Integer> hand) {
+
+    // new
+    public static int getLowHandValue(ArrayList<Integer> hand) {
         int value = 0;
         for (int card : hand) {
             value += getCardValue(card);
         }
         return value;
+    }
+
+    // new
+    public static String getHandValueDescription(ArrayList<Integer> hand) {
+        Integer high =  getHighHandValue(hand);
+        Integer low = getLowHandValue(hand);
+        if (high == low) {
+            return high.toString();
+        }
+        else {
+            return low + " or " + high;
+        }
+    }
+
+    // new
+    public static boolean isSoftHand(ArrayList<Integer> hand) {
+        Integer high =  getHighHandValue(hand);
+        Integer low = getLowHandValue(hand);
+        return  ! (high == low) ;
     }
 
     public static int pullNextCard() {
@@ -133,7 +171,6 @@ public class BlackjackGame {
         deck = initializeDeck();
     }
 
-
     public static void main(String[] args) {
 
         BlackjackGame blackjackGame = new BlackjackGame();
@@ -148,28 +185,13 @@ public class BlackjackGame {
         // get dealer and player names
 
 
-
         // deal dealer and player hands
         dealerHand = blackjackGame.pullHand();
         playerHand = blackjackGame.pullHand();
-        System.out.println("hand value: " + getHandValue(playerHand));
+        System.out.println("hand value: " + getHandValueDescription(playerHand));
         System.out.println("hand description: " + getHandDescription(playerHand));
         System.out.println("hand upcard: " + getUpcareDescription(playerHand));
-
-        // player plays hand
-
-
-
-        // dealer plays hand
-
-
-
-        // determine winner
-
-
+        System.out.println("hand is soft (has an ace): " + isSoftHand(playerHand));
 
     }
-
-
-
 }
