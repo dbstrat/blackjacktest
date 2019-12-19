@@ -105,32 +105,32 @@ public class BlackjackGame {
         return value;
     }
 
-    public int pullNextCard() {
+    public static int pullNextCard() {
         // reshuffle if not enough cards
         final int reshuffleMinimum = 10;
-        if (this.deck.length <= reshuffleMinimum) {
-            this.deck = initializeDeck();
+        if (deck.length <= reshuffleMinimum) {
+            deck = initializeDeck();
         }
 
         // pop the first card off the top of the deck
-        int card = this.deck[0];
+        int card = deck[0];
         int[] remainingDeck = new int[deck.length-1];
-        System.arraycopy(this.deck, 1, remainingDeck, 0, deck.length-1);
-        this.deck = remainingDeck;
+        System.arraycopy(deck, 1, remainingDeck, 0, deck.length-1);
+        deck = remainingDeck;
         return card;
     }
 
-    public ArrayList<Integer> pullHand() {
+    public static ArrayList<Integer> pullHand() {
         ArrayList<Integer> hand = new  ArrayList<>();
         hand.add(pullNextCard());
         hand.add(pullNextCard());
         return hand;
     }
 
-    private int[] deck;
+    public static int[] deck;
 
     public BlackjackGame() {
-        this.deck = shuffleDeck(initializeDeck());
+        deck = initializeDeck();
     }
 
 
